@@ -58,7 +58,7 @@ klusters = int(input('Please, enter k-value: '))
 expectedDir = './/images'
 i = 1
 
-for fileName_relative in glob.glob(expectedDir + "**//*.jpg", recursive=True):
+for fileName_relative in glob.glob(expectedDir + "**//*.png", recursive=True):
     print("Full file name with directories: ", fileName_relative)
     # Now get the file name with os.path.basename
     fileName_absolute = os.path.basename(fileName_relative)
@@ -77,6 +77,6 @@ for fileName_relative in glob.glob(expectedDir + "**//*.jpg", recursive=True):
     completeName = os.path.join(save_path, f'results_{i}' + ".txt")
     with open(completeName, 'w') as f:
         f.write(str(result) + '\n')
-        print(f'Запись результата парсига {fileName_absolute} в {completeName} прошла успешно')
+        print(f'Запись результата {fileName_absolute} в {completeName} прошла успешно')
     i = i + 1
 
