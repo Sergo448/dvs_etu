@@ -10,7 +10,7 @@ import random
 import cv2
 import numpy as np
 
-im_path = '/home/sergey/PycharmProjects/dvs_etu/k_means/img/lena.png'
+im_path = '/k_means/images/lena.png'
 
 
 class K_means:
