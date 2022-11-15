@@ -40,6 +40,8 @@ def kmeans(path, klusters):
 
     # reshape back to the original image dimension
     segmented_image = segmented_image.reshape(image.shape)
+    
+    return segmented_image
 
 
 # show the image
