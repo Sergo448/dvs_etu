@@ -5,19 +5,18 @@
 # date: 15.11.2021
 # Python version : 3.10
 
-from k_means_pluss import Make_funks
+from Funks import Make_funks
 import random
 import cv2
 import numpy as np
 
-im_path = '/k_means/images/lena.png'
-
 
 class K_means:
-    def __init__(self, ):
-        self.voronoi_sets = []
-        self.num_clusters = 0
-        self.img = cv2.imdecode(np.fromfile(im_path, dtype=np.uint8), cv2.IMREAD_UNCHANGED)
+    def __init__(self, img_path, num_clussters):
+        self.v_sets = []
+        self.num_clusters = num_clussters
+        # self.img = None
+        self.img = cv2.imread(img_path)
         self.img_clustered = None
 
     # Initialize Codebook that include k codevectors
@@ -45,8 +44,8 @@ class K_means:
                     break
 
             codevector = [self.img[row][col][0], self.img[row][col][1], self.img[row][col][2]]
-            voronoi_set = Make_funks(codevector, i)
-            self.voronoi_sets.append(voronoi_set)
+            v_set = Make_funks(codevector, i)
+            self.v_sets.append(v_set)
             tmp.append([row, col])
 
     @staticmethod
@@ -61,28 +60,28 @@ class K_means:
                 point = [self.img[j][i][0], self.img[j][i][1], self.img[j][i][2]]
 
                 dist = float("inf")
-                voronoi_set_track = None
-                for voronoi_set in self.voronoi_sets:
-                    new_dist = self.euclidean_distance(point, voronoi_set.get_codevector())
+                v_set_track = None
+                for v_set in self.v_sets:
+                    new_dist = self.euclidean_distance(point, v_set.get_codevector())
                     if new_dist < dist:
                         dist = new_dist
-                        voronoi_set_track = voronoi_set
+                        v_set_track = v_set
 
-                self.img_clustered[i][j] = voronoi_set_track.get_ID()
-                voronoi_set_track.add_sum(point)
+                self.img_clustered[i][j] = v_set_track.get_ID()
+                v_set_track.add_sum(point)
 
     # For each codevector, compute the new position (mean).
     # When no codevector changes position, we have come to convergence.
     def m_step(self):
         convergence = True
-        for voronoi_set in self.voronoi_sets:
-            new_codevector = voronoi_set.get_new_codevector()
-            current_codevector = voronoi_set.get_codevector()
+        for v_set in self.v_sets:
+            new_codevector = v_set.get_new_codevector()
+            current_codevector = v_set.get_codevector()
             print("current codevector : ", current_codevector)
             print("new codevector : ", new_codevector)
             if new_codevector != current_codevector:
                 convergence = False
-                voronoi_set.set_codevector(new_codevector)
+                v_set.set_codevector(new_codevector)
 
         return convergence
 
@@ -92,9 +91,9 @@ class K_means:
 
         for i in range(len(self.img_clustered)):
             for j in range(len(self.img_clustered[i])):
-                for voronoi_set in self.voronoi_sets:
-                    if self.img_clustered[i][j] == voronoi_set.get_ID():
-                        img[j][i] = voronoi_set.get_codevector()
+                for v_set in self.v_sets:
+                    if self.img_clustered[i][j] == v_set.get_ID():
+                        img[j][i] = v_set.get_codevector()
                         break
         return img
 
@@ -109,7 +108,7 @@ class K_means:
             print("Step number : ", steps)
             self.e_step()
             convergence = self.m_step()
-            for voronoi_set in self.voronoi_sets: voronoi_set.reset_sum()
+            for v_set in self.v_sets: v_set.reset_sum()
             if convergence:
                 break
             steps = steps + 1
