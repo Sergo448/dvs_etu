@@ -39,3 +39,5 @@ class Regressor_RGB:
         transformed_image_by_weights = cv.addWeighted(self.image, alpha, transformed_image_by_merge, beta, 0.0)
 
         return transformed_image_by_merge, transformed_image_by_weights
+
+        # return transformed_image_by_merge

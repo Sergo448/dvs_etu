@@ -23,11 +23,13 @@ def main(path_to_image):
     regresor = Regressor_RGB(image=path_to_image)
 
     transformed_image_by_merge, transformed_image_by_weights = regresor.make_vector_and_split()
+    # transformed_image_by_merge = regresor.make_vector_and_split()
 
     # SAVING
     # using funk writer
     path_to_results = './/results'
     writer(image_1=transformed_image_by_merge, image_2=transformed_image_by_weights)
+    # writer(image_1=transformed_image_by_merge, image_2=None)
 
 
 path_to_image = r'.//images//image_with_aberation.jpg'
