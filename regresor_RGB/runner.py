@@ -34,3 +34,19 @@ path_to_image = r'.//images//image_with_aberation.jpg'
 
 if __name__ == "__main__":
     main(path_to_image=path_to_image)
+
+"""
+Error:
+
+Traceback (most recent call last):
+  File "/home/sergey/PycharmProjects/dvs_etu/regresor_RGB/runner.py", line 36, in <module>
+    main(path_to_image=path_to_image)
+  File "/home/sergey/PycharmProjects/dvs_etu/regresor_RGB/runner.py", line 25, in main
+    transformed_image_by_merge, transformed_image_by_weights = regresor.make_vector_and_split()
+  File "/home/sergey/PycharmProjects/dvs_etu/regresor_RGB/regresor.py", line 39, in make_vector_and_split
+    transformed_image_by_weights = cv.addWeighted(self.load_image(), alpha, transformed_image_by_merge, beta, 0.0)
+cv2.error: OpenCV(4.6.0) /io/opencv/modules/core/src/arithm.cpp:647: error: (-209:Sizes of input arguments do not match)
+ The operation is neither 'array op array' (where arrays have the same size and the same number of channels),
+ nor 'array op scalar', nor 'scalar op array' in function 'arithm_op'
+
+"""
