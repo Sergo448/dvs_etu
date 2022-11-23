@@ -1,6 +1,6 @@
 from color_detect import *
 
-std_color_file = r'E:\code\collor_recorrect\color_value.csv'
+std_color_file = r'color_value.csv'
 
 
 def get_A_matrix(x, y):
@@ -52,7 +52,7 @@ def get_stdColor_value():
     """
     color_dict = {}
     std_matrix = []
-    color_value_list = np.loadtxt(std_color_file, dtype=np.str, delimiter=',')
+    color_value_list = np.loadtxt(std_color_file, dtype=str, delimiter=',')
 
     for element in color_value_list:
         color_dict[element[1]] = (int(element[2]), int(element[3]), int(element[4]))

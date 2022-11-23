@@ -61,9 +61,9 @@ def _combine_rect(h_lines, v_lines):
         for x_index in range(len(x_axis) - 1):
             area = abs((y_axis[y_index + 1] - y_axis[y_index]) * (x_axis[x_index + 1] - x_axis[x_index]))
             rects.append([(y_axis[y_index], x_axis[x_index],
-                          y_axis[y_index + 1], x_axis[x_index + 1]), area])
+                           y_axis[y_index + 1], x_axis[x_index + 1]), area])
     # Сортировать по площади в порядке убывания
-    rects.sort(key = lambda  ele: ele[1], reverse=True)
+    rects.sort(key=lambda ele: ele[1], reverse=True)
     areas = [ele[1] for ele in rects]
 
     # Найти серийный номер с наибольшей смежной разницей
@@ -77,8 +77,8 @@ def _combine_rect(h_lines, v_lines):
 
     # rects Сортировать в порядке возрастания координат, чтобы порядок цветов соответствовал стандартной цветовой карте.
     rect_list = [ele[0] for ele in rects[0:index]]
-    rect_list.sort(key = lambda  ele: ele[1])
-    rect_list.sort(key = lambda ele: ele[0])
+    rect_list.sort(key=lambda ele: ele[1])
+    rect_list.sort(key=lambda ele: ele[0])
 
     # for i in range(len(rect_list) - 1):
     #     for j in range(0, len(rect_list) - 1 - i):
@@ -95,10 +95,13 @@ def _combine_rect(h_lines, v_lines):
 
 def img_split(img, img_show=False):
     """
-         Разделите изображение цветовой карты, которое нужно протестировать, и получите список сегментированных прямоугольных изображений и входное изображение, требуемое формой уравнения регрессии: (4, 6, 3), формат пикселей: (b, g, r)
-         : param img_file: изображение цветовой карты для тестирования
-         : param img_show: показывать ли
-         : return: прямоугольный список разделенных подизображений
+    Разделите изображение цветовой карты, которое нужно протестировать,
+    и получите список сегментированных прямоугольных изображений и входное изображение,
+    требуемое формой уравнения регрессии: (4, 6, 3), формат пикселей: (b, g, r)
+
+    : param img_file: изображение цветовой карты для тестирования
+    : param img_show: показывать ли
+    : return: прямоугольный список разделенных подизображений
     """
     # Заполните 10 пикселей каждый
     padding = 10
@@ -121,10 +124,10 @@ def img_split(img, img_show=False):
 
     # padding тоже, поэтому вам нужно вычесть значение отступа при позиционировании
     img = cv2.copyMakeBorder(img, padding, padding, padding, padding, cv2.BORDER_CONSTANT, value=(0, 0, 0))
-    color_img = np.zeros((4,6,3),dtype=np.uint8)
+    color_img = np.zeros((4, 6, 3), dtype=np.uint8)
     for index, rect in enumerate(rects):
         rect_img = img[rect[0]:rect[2], rect[1]:rect[3]]
-        color_img[index//6][index%6] = get_center_color(rect_img)
+        color_img[index // 6][index % 6] = get_center_color(rect_img)
         # print(index, color_img[index//6][index%6])
         split_imgs.append(rect_img)
 
@@ -134,7 +137,8 @@ def img_split(img, img_show=False):
             cv2.rectangle(img, (rect[1], rect[0]), (rect[3], rect[2]), (0, 255, 0), 2)
             # Напишите метку на идентифицированном объекте
             font = cv2.FONT_HERSHEY_SIMPLEX
-            cv2.putText(img, str(p), (rect[1] - 10, rect[0] + 10), font, 1, (0, 0, 255), 2)  # Плюс и минус 10 - настроить положение персонажа
+            cv2.putText(img, str(p), (rect[1] - 10, rect[0] + 10), font, 1, (0, 0, 255),
+                        2)  # Плюс и минус 10 - настроить положение персонажа
             p += 1
 
         img = cv2.resize(img, (int(h * 0.7), int(h * 0.7 / rate)))
@@ -143,16 +147,17 @@ def img_split(img, img_show=False):
 
     return split_imgs, color_img
 
+
 def get_center_color(img):
     """
-         Рассчитать среднее значение (5, 5) пикселей в середине данного изображения
+    Рассчитать среднее значение (5, 5) пикселей в середине данного изображения
     :param img:
     :return:
     """
     w = img.shape[0]
-    w = w//2
+    w = w // 2
     h = img.shape[1]
-    h = h//2
+    h = h // 2
     data = img[h - 2:h + 2, w - 2:w + 2]
-    b,g,r = cv2.split(data)
-    return (int(np.mean(b)), int(np.mean(g)), int(np.mean(r)))
+    b, g, r = cv2.split(data)
+    return int(np.mean(b)), int(np.mean(g)), int(np.mean(r))
