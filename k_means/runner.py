@@ -1,6 +1,6 @@
 # project name: dvs_etu
 # version: 1.0
-# file name: kmeans.py
+# file name: runner.py
 # auther: Sergo448, 7193
 # date: 15.11.2021
 # Python version : 3.10
