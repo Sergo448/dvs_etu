@@ -11,9 +11,9 @@ path_G = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images/
 path_B = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images//B_image.jpeg'
 
 img_ = cv.imread(path_R)
-img1 = cv.cvtColor(img_, cv.COLOR_BGR2GRAY)
-
 img = cv.imread(path_G)
+
+img1 = cv.cvtColor(img_, cv.COLOR_BGR2GRAY)
 img2 = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
 """
