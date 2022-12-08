@@ -5,13 +5,11 @@ import matplotlib.pyplot as plt
 """
     Поскольку мы знаем, что мы сшиваем 2 изображения, давайте прочитаем их.
 """
-path_R = r'..//3grad_images//R_image.jpeg'
-path_G = r'..//3grad_images//G_image.jpeg'
 
-# img_ = Image.open(path_R)
-# img = Image.open(path_G)
-# img_ = cv.imread(path_R, cv.IMREAD_UNCHANGED)
-# img1 = cv.cvtColor(img_, cv.COLOR_BGR2GRAY)
+path_R = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images//R_image.jpeg'
+path_G = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images//G_image.jpeg'
+path_B = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images//B_image.jpeg'
+
 img_ = cv.imread(path_R)
 img1 = cv.cvtColor(img_, cv.COLOR_BGR2GRAY)
 
