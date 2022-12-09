@@ -44,36 +44,6 @@ class MkNN:
     # Визуализация классификации сетки точек
 
 
-def show_data_on_mesh(k, classes, inv_cov_matrices):
-    # Генерация сетки
-    min_ = np.min([np.min(class_, axis=0) for class_ in classes], axis=1) - 1
-    max_ = np.max([np.max(class_, axis=0) for class_ in classes], axis=1) + 1
-    min_c = min(min_[0], min_[1])
-    max_c = max(max_[0], max_[1])
-    h = 0.05
-    test_mesh = np.meshgrid(np.arange(min_c, max_c, h), np.arange(min_c, max_c, h))
-    test_points = np.c_[test_mesh[0].ravel(), test_mesh[1].ravel()]
-    # Классификация точек сетки
-    classifier = MkNN(k, classes, inv_cov_matrices)
-    test_mesh_labels = [sub(*classifier.predict_proba(x)) for x in test_points]
-    # Создание графика
-    plt.figure(figsize=(6, 5), dpi=90)
-    class_colormap = colors.ListedColormap(['#070648', '#480607'])
-    plt.pcolormesh(test_mesh[0], test_mesh[1],
-                   np.asarray(test_mesh_labels).reshape(test_mesh[0].shape),
-                   cmap='coolwarm', shading='nearest')
-    plt.colorbar()
-    plt.scatter([point[0] for class_ in classes for point in class_],
-                [point[1] for class_ in classes for point in class_],
-                c=[-i for i, class_ in enumerate(classes) for _ in class_],
-                cmap=class_colormap)
-    plt.axis([min_c, max_c, min_c, max_c])
-    plt.xlabel("X")
-    plt.ylabel("Y")
-    plt.title("k=" + str(k))
-    plt.show()
-
-
 def main():
     iris = load_iris()
     X = iris.data  # we only take the first two features.
