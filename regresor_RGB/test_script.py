@@ -72,12 +72,12 @@ def siftimg_rightlignment(img_right, img_left):
         return result
 
 
-path_R = r'/regresor_RGB/3grad_images/R_image.jpeg'
-path_G = r'/regresor_RGB/3grad_images/G_image.jpeg'
-path_B = r'/regresor_RGB/3grad_images/B_image.jpeg'
+path_R = r'..//3grad_images//R_image.jpeg'
+path_G = r'..//3grad_images/G_image.jpeg'
+path_B = r'..//regresor_RGB//3grad_images//B_image.jpeg'
 # Соответствие функций + панорамная строчка
-path_1 = r'//home//sergey//PycharmProjects//dvs_etu//panorama//first.jpeg'
-path_2 = r'//home//sergey//PycharmProjects//dvs_etu//panorama//second.jpeg'
+path_1 = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images_plus_rectangles//B_image_l.jpeg'
+path_2 = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images_plus_rectangles//G_image_r.jpeg'
 # Прочтите сшитую картинку (обратите внимание на расположение левой и правой картинок)
 # Преобразовать графику справа
 img_right = cv2.imread(path_1)
@@ -91,8 +91,9 @@ kpimg_right, kp1, des1 = sift_kp(img_right)
 kpimg_left, kp2, des2 = sift_kp(img_left)
 
 # Отображение исходного изображения и изображения после обнаружения ключевой точки одновременно
-cvshow('img_left', np.hstack((img_left, kpimg_left)))
-cvshow('img_right', np.hstack((img_right, kpimg_right)))
+# cvshow('img_left', np.hstack((img_left, kpimg_left)))
+# cvshow('img_right', np.hstack((img_right, kpimg_right)))
+
 goodMatch = get_good_match(des1, des2)
 
 all_goodmatch_img = cv2.drawMatches(img_right, kp1, img_left, kp2, goodMatch, None, flags=2)
@@ -100,8 +101,8 @@ all_goodmatch_img = cv2.drawMatches(img_right, kp1, img_left, kp2, goodMatch, No
 # goodmatch_img Установите, сколько goodMatch перед собой [: 10]
 goodmatch_img = cv2.drawMatches(img_right, kp1, img_left, kp2, goodMatch[:10], None, flags=2)
 
-cvshow('Keypoint Matches1', all_goodmatch_img)
-cvshow('Keypoint Matches2', goodmatch_img)
+# cvshow('Keypoint Matches1', all_goodmatch_img)
+# cvshow('Keypoint Matches2', goodmatch_img)
 
 # Склеиваем картинку в панораму
 result = siftimg_rightlignment(img_right, img_left)

@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
     Поскольку мы знаем, что мы сшиваем 2 изображения, давайте прочитаем их.
 """
 
-path_R = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images//R_image.jpeg'
-path_G = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images//G_image.jpeg'
-path_B = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images//B_image.jpeg'
+path_R = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images_plus_rectangles//R_image.jpeg'
+path_G = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images_plus_rectangles//G_image.jpeg'
+path_B = r'//home//sergey//PycharmProjects//dvs_etu//regresor_RGB//3grad_images_plus_rectangles//B_image.jpeg'
 
 img_ = cv.imread(path_R)
 img = cv.imread(path_G)
