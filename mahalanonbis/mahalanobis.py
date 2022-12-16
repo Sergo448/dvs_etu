@@ -97,7 +97,7 @@ def main():
                   classifier.predict_all_max(test_point))
             """
             print(f"{i}nn:",
-                  1+ classifier.predict(test_point),
+                  1 + classifier.predict(test_point),
                   classifier.predict_proba(test_point),
                   classifier.predict_all_max(test_point))
 
